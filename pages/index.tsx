@@ -1,7 +1,7 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import AppLayout from '../components/AppLayout'
 
-const Home = function (): ReactElement {
+const Home = function () {
   return (
     <AppLayout>
       <div>Hello, Next!</div>

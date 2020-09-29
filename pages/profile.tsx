@@ -1,6 +1,6 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 
-const Profile = function (): ReactElement {
+const Profile = function () {
   return <div>내 프로필</div>
 }
 

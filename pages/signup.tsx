@@ -1,6 +1,6 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 
-const Signup = function (): ReactElement {
+const Signup = function () {
   return <div>회원가입 페이지</div>
 }
 
