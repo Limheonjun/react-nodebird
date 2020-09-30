@@ -3,6 +3,7 @@ import { Form, Input, Button } from 'antd'
 import Link from 'next/link'
 import styled from 'styled-components'
 import { LogInProps } from '../interface/interface';
+import useInput from '../hooks/useInput';
 
 const ButtonWrapper = styled.div`
   margin-top: 10px;
@@ -13,17 +14,9 @@ const FormWrapper = styled(Form)`
 `
 
 const LoginForm = function ({ setIsLoggedIn }: LogInProps) {
-  const [id, setId] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
+  const [id, onChangeId] = useInput('')
+  const [password, onChangePassword] = useInput('')
   const [passwordCheck, setPasswordCheck] = useState<string>('')
-
-  const onChangeId = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setId(e.target.value)
-  }, [])
-
-  const onChangePassword = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value)
-  }, [])
 
   const style = useMemo(() => ({ marginTop: 10 }), [])
   
