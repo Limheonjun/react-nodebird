@@ -2,12 +2,17 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 import { Menu, Input, Row, Col } from 'antd'
-
+import styled from 'styled-components'
 import UserProfile from './UserProfile';
 import LoginForm from './LoginForm';
+import { ChildProps } from '../interface/interface';
 
-const AppLayout = function ({ children }: Props) {
-  const [isLoggedIn, setIsLoggedInd] = useState<boolean>(false)
+const SearchInput = styled(Input.Search)`
+  vertical-align: middle;
+`
+
+const AppLayout = function ({ children }: ChildProps) {
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
 
   return (
     <div>
@@ -19,7 +24,7 @@ const AppLayout = function ({ children }: Props) {
           <Link href="/profile"><a>프로필</a></Link>
         </Menu.Item>
         <Menu.Item>
-          <Input.Search enterButton style={{ verticalAlign: 'middle' }}/>
+          <SearchInput enterButton/>
         </Menu.Item>
         <Menu.Item>  
           <Link href="/signup"><a>회원가입</a></Link>
@@ -27,7 +32,7 @@ const AppLayout = function ({ children }: Props) {
       </Menu>
       <Row gutter={8}>
         <Col xs={24} md={6}>
-          {isLoggedIn ? <UserProfile /> : <LoginForm/>}
+          {isLoggedIn ? <UserProfile setIsLoggedIn={setIsLoggedIn} /> : <LoginForm setIsLoggedIn={setIsLoggedIn}/>}
         </Col>
         <Col xs={24} md={12}>
           {children}
@@ -50,11 +55,3 @@ const AppLayout = function ({ children }: Props) {
 
 
 export default AppLayout
-
-
-/**
- * 타입스크립트 번외 세팅
- */
-interface Props {
-  children: React.ReactNode
-}
