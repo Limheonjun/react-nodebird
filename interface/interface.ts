@@ -5,3 +5,8 @@ export interface LogInProps {
 export interface ChildProps {
   children: React.ReactNode
 }
+
+export interface FollowProps {
+  header: string,
+  data: Array<any>
+}
