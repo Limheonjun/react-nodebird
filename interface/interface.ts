@@ -15,3 +15,7 @@ export interface ImagesZoomProps {
   images: Array<Object>,
   onClose: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
+
+export interface PostCardContentProps {
+  postData: string
+}
