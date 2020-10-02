@@ -4,6 +4,7 @@ import 'antd/dist/antd.css'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import Wrapper from '../store/configureStore';
+import withReduxSaga from 'next-redux-saga'
 
 const NodeBird = function ({ Component }: AppProps) {
   return (
@@ -21,7 +22,7 @@ const NodeBird = function ({ Component }: AppProps) {
 //   Component: PropTypes.elementType.isRequired
 // }
 
-export default Wrapper.withRedux(NodeBird)
+export default Wrapper.withRedux(withReduxSaga(NodeBird))
 
 
 
