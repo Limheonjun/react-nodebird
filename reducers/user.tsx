@@ -39,7 +39,7 @@ const dummyUser = (data) => ({
   id: 1,
   Posts: [],
   Followings: [],
-  Follwers: []
+  Followers: []
 })
 
 // action creator

@@ -7,5 +7,5 @@ export default function (initialValue) {
     //혹여나 string외의 다른 타입이 들어오면 e.target.value가 해당 타입이 아니기 때문
     setValue(e.target.value)
   }, [])
-  return [value, handler]
+  return [value, handler ,setValue]
 }
