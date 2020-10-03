@@ -3,7 +3,6 @@ import { PostCardContentProps } from '../interface/interface';
 import Link from 'next/link';
 
 const PostCardContent = function ({ postData }: { postData: string }) {
-  console.log("postData : " + postData)
   if (postData.split != null) {
     return (
       <div>
