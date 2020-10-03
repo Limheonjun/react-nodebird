@@ -40,13 +40,17 @@ export const UNFOLLOW_REQUEST = 'UNFOLLOW_REQUEST';
 export const UNFOLLOW_SUCCESS = 'UNFOLLOW_SUCCESS';
 export const UNFOLLOW_FAILURE = 'UNFOLLOW_FAILURE';
 
+//post리듀서에서 user리듀서에 바로 접근할 수 없기에 액션을 만들어주고 디스패치를 해줌
+export const ADD_POST_TO_ME = 'ADD_POST_TO_ME'
+export const REMOVE_POST_OF_ME = 'REMOVE_POST'
+
 const dummyUser = (data) => ({
   ...data,
   nickname: '제로초',
   id: 1,
-  Posts: [],
-  Followings: [],
-  Followers: []
+  Posts: [{ id: 1 }],
+  Followings: [{ nickname: 'tommy'}, { nickname: 'mickel'}, { nickname: 'susan'},],
+  Followers: [{ nickname: 'tommy'}, { nickname: 'mickel'}, { nickname: 'susan'},]
 })
 
 // action creator
@@ -144,6 +148,22 @@ const reducer = (state = initalState, action) => {
         ...state,
         changeNicknameLoading: false,
         changeNicknameError: action.error,
+      }
+    case ADD_POST_TO_ME:
+      return {
+        ...state,
+        me: {
+          ...state.me,
+          Posts: [{ id: action.data }, ...state.me.Posts],
+        }
+      }
+    case REMOVE_POST_TO_ME:
+      return {
+        ...state,
+        me: {
+          ...state.me,
+          Posts: state.me.Posts.filter((v) => v.id === action.data),
+        }
       }
     default:
       return state

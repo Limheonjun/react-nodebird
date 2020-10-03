@@ -2,7 +2,7 @@ import React from 'react'
 import { PostCardContentProps } from '../interface/interface';
 import Link from 'next/link';
 
-const PostCardContent = function ({ postData }: PostCardContentProps) {
+const PostCardContent = function ({ postData }) {
   return (
     <div>
       {postData.split(/(#[^\s#]+)/g).map((v, i) => {
