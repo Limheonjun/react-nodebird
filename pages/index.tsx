@@ -10,7 +10,7 @@ const Home = function () {
   return (
     <AppLayout>
       {me && <PostForm />}
-      {mainPosts.map(post => <PostCard key={post.id} post={post}/>)}
+      {mainPosts.map(c => <PostCard key={c.id} post={c}/>)}
     </AppLayout>
   )
 }

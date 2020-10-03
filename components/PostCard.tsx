@@ -8,6 +8,7 @@ import PostCardContent from './PostCardContent'
 import { REMOVE_POST_REQUEST } from '../reducers/post';
 
 const PostCard = function ({ post }) {
+  const content: string = post.content;
   const dispatch = useDispatch()
   const { removePostLoading } = useSelector(state => state.post)
   const [linked, setLinked] = useState<boolean>(false)
@@ -18,8 +19,9 @@ const PostCard = function ({ post }) {
   const onToggleComment = useCallback(() => {
     setCommentFormOpened((prev) => !prev)
   }, [])
-  const id = useSelector(state => state.userme?.id)
-
+  const { me } = useSelector((state) => state.user);
+  const id = me && me.id;
+  
   const onRemovePost = useCallback(() => {
     dispatch({
       type: REMOVE_POST_REQUEST,
@@ -55,7 +57,7 @@ const PostCard = function ({ post }) {
         <Card.Meta
           avatar={<Avatar>{post.User.nickname[0]}</Avatar>}
           title={post.User.nickname}
-          description={<PostCardContent postData={post.content} />}  
+          description={<PostCardContent postData={content} />}  
         />
       </Card>
       {commentFormOpened && (

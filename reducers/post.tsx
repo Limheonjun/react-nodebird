@@ -1,7 +1,8 @@
 import shortId from 'shortid'
 import produce from 'immer'
+import faker from 'faker'
 
-export const initalState = {
+export const initialState: any = {
   mainPosts: [{
     id: 1,
     User: {
@@ -47,6 +48,27 @@ export const initalState = {
   addCommentError: null,
 }
 
+initialState.mainPosts = initialState.mainPosts.concat(
+  Array(20).fill().map(() => ({
+    id: shortId.generate(),
+    User: {
+      id: shortId.generate(),
+      nickname: faker.name.findName(),
+    },
+    content: faker.lorem.paragraph,
+    Images: [{
+      src: faker.image.imageUrl(),
+    }],
+    Comments: [{
+      User: {
+        id: shortId.generate(),
+        nickname: faker.name.findName(),
+      },
+      content: faker.lorem.sentence(),
+    }],
+  }))
+)
+
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
 export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
@@ -90,7 +112,7 @@ const dummyComment = (data) => ({
 });
 
 //리듀서란? 이전 상태를 액션을 통해 다음 상태로 만들어내는 함수(불변성 유지)
-const reducer = (state = initalState, action) => {
+const reducer = (state = initialState, action) => {
   return produce(state, draft => {
     switch (action.type) {
       case ADD_POST_REQUEST:
