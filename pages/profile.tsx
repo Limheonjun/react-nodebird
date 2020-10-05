@@ -14,7 +14,9 @@ const Profile = function () {
     if (!me || !me.id) {
       Router.push('/') 
     }
-  })
+  }, [me && me.id])
+
+  if (!me) return null
 
   return (
     <>
