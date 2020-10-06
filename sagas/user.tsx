@@ -14,17 +14,16 @@ import {
 } from '../reducers/user';
 
 function logInAPI(data) {
-  return axios.post('/api/login', data)
+  return axios.post('/user/login', data)
 }
 
 //요청이 실패하는것에 대비해서 try-catch 사용
 function* logIn(action) {
   try {
-    // const result = yield call(logInAPI, action.data)
-    yield delay(1000)
+    const result = yield call(logInAPI, action.data)
     yield put({
       type: LOG_IN_SUCCESS,
-      data: action.data
+      data: result.data
     })
   } catch(err) {
     yield put({
@@ -35,7 +34,7 @@ function* logIn(action) {
 }
 
 function logOutAPI() {
-  return axios.post('/api/logout');
+  return axios.post('/user/logout');
 }
 
 function* logOut() {
@@ -54,7 +53,7 @@ function* logOut() {
 }
 
 function signUpAPI(data) {
-  return axios.post('http://localhost:8080/user/', data);
+  return axios.post('/user', data);
 }
 
 function* signUp(action) {
@@ -73,7 +72,7 @@ function* signUp(action) {
 }
 
 function followAPI() {
-  return axios.post('/api/follow');
+  return axios.post('/follow');
 }
 
 function* follow(action) {
