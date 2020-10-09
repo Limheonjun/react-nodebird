@@ -19,7 +19,7 @@ const Signup = function () {
 
     //회원가입 성공 시 회원가입페이지에서 나가기
     useEffect(() => {
-      if (me || me.id) {
+      if (me) {
         Router.replace('/') 
       }
     }, [me && me.id])
