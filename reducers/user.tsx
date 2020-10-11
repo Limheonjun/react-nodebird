@@ -1,6 +1,9 @@
 import produce from "immer";
 
 export const initalState = {
+  loadUserLoading: false, //팔로우 시도중
+  loadUserDone: false,
+  loadUserError: null,
   followLoading: false, //팔로우 시도중
   followDone: false,
   followError: null,
@@ -23,6 +26,10 @@ export const initalState = {
   signUpData: {},
   loginData: {}
 }
+
+export const LOAD_MY_INFO_REQUEST = 'LOAD_MY_INFO_REQUEST';
+export const LOAD_MY_INFO_SUCCESS = 'LOAD_MY_INFO_SUCCESS';
+export const LOAD_MY_INFO_FAILURE = 'LOAD_MY_INFO_FAILURE';
 
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
@@ -78,6 +85,20 @@ export const logoutRequestAction = () => {
 const reducer = (state = initalState, action) => {
   return produce(state, draft => {
     switch (action.type) {
+      case LOAD_MY_INFO_REQUEST:
+        draft.loadUserLoading = true
+        draft.loadUserError = null
+        draft.loadUserDone = false
+        break
+      case LOAD_MY_INFO_SUCCESS:
+        draft.loadUserLoading = false
+        draft.loadUserDone = true
+        draft.me = action.data
+        break
+      case LOAD_MY_INFO_FAILURE:
+        draft.loadUserLoading = false
+        draft.loadUserError = action.error
+        break
       case FOLLOW_REQUEST:
         draft.followLoading = true
         draft.followError = null
@@ -90,7 +111,7 @@ const reducer = (state = initalState, action) => {
         break
       case FOLLOW_FAILURE:
         draft.followLoading = false
-        draft.followError = false
+        draft.followError = action.error
         break
       case UNFOLLOW_REQUEST:
         draft.unfollowLoading = true
