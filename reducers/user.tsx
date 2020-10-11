@@ -161,10 +161,10 @@ const reducer = (state = initalState, action) => {
         draft.changeNicknameError = action.error
         break
       case ADD_POST_TO_ME:
-        draft.me.Posts.unshift({ id: action.data })
+        draft.me.postsList.unshift({ id: action.data })
         break
       case REMOVE_POST_OF_ME:
-        draft.me.Posts = draft.me.Posts.filter(v => v.id !== action.data)
+        draft.me.postsList = draft.me.postsList.filter(v => v.id !== action.data)
         break
       default:
         break
