@@ -33,7 +33,7 @@ const PostCard = function ({ post }) {
   return (
     <div style={{ marginBottom: 10 }}>
       <Card
-        cover={post.Images[0] && <PostImages images={post.Images} />}
+        cover={post.imagesList[0] && <PostImages images={post.imagesList} />}
         actions={[
           <RetweetOutlined key="retweet"/>,
           linked
@@ -42,7 +42,7 @@ const PostCard = function ({ post }) {
           <MessageOutlined key="comment" onClick={onToggleComment}/>,
           <Popover key="more" content={(
             <Button.Group>
-              {id && post.User.id === id
+              {id && post.users.id === id
                 ? (
                   <>
                     <Button>수정</Button>
@@ -57,8 +57,8 @@ const PostCard = function ({ post }) {
         extra={id && <FollowButton post={post}/>}
       >
         <Card.Meta
-          avatar={<Avatar>{post.User.nickname[0]}</Avatar>}
-          title={post.User.nickname}
+          avatar={<Avatar>{post.users.nickname[0]}</Avatar>}
+          title={post.users.nickname}
           description={<PostCardContent postData={content} />}  
         />
       </Card>
@@ -68,12 +68,12 @@ const PostCard = function ({ post }) {
           <List
             header={`${post.Comments.length}개의 댓글`}
             itemLayout="horizontal"
-            dataSource={post.Comments}
+            dataSource={post.commentsList}
             renderItem={(item) => (
               <li>
                 <Comment
-                  author={item.User.nickname}
-                  avatar={<Avatar>{item.User.nickname[0]}</Avatar>}
+                  author={item.users.nickname}
+                  avatar={<Avatar>{item.users.nickname[0]}</Avatar>}
                   content={item.content}
                 />
               </li>
