@@ -1,6 +1,6 @@
 import { all, call, delay, fork, put, takeLatest } from 'redux-saga/effects'
 import axios from 'axios';
-import { FOLLOW_REQUEST, UNFOLLOW_REQUEST, FOLLOW_SUCCESS, FOLLOW_FAILURE, UNFOLLOW_SUCCESS, UNFOLLOW_FAILURE } from '../reducers/user';
+import { FOLLOW_REQUEST, UNFOLLOW_REQUEST, FOLLOW_SUCCESS, FOLLOW_FAILURE, UNFOLLOW_SUCCESS, UNFOLLOW_FAILURE, LOAD_MY_INFO_REQUEST, LOAD_MY_INFO_SUCCESS, LOAD_MY_INFO_FAILURE } from '../reducers/user';
 import {
   LOG_IN_FAILURE,
   LOG_IN_REQUEST,
@@ -13,8 +13,28 @@ import {
   SIGN_UP_SUCCESS,
 } from '../reducers/user';
 
+function loadUserAPI() {
+  return axios.get('/user/')
+}
+
+//요청이 실패하는것에 대비해서 try-catch 사용
+function* loadUser(action) {
+  try {
+    const result = yield call(loadUserAPI, action.data)
+    yield put({
+      type: LOAD_MY_INFO_SUCCESS,
+      data: result.data
+    })
+  } catch(err) {
+    yield put({
+      type: LOAD_MY_INFO_FAILURE,
+      error: err.response.data
+    })
+  }
+}
+
 function logInAPI(data) {
-  return axios.post('/user/login', data)
+  return axios.post('/user/login', data, { withCredentials: true})
 }
 
 //요청이 실패하는것에 대비해서 try-catch 사용
@@ -110,6 +130,9 @@ function* unfollow(action) {
   }
 }
 
+function* watchLoadUser() {
+  yield takeLatest(LOAD_MY_INFO_REQUEST, loadUser)
+}
 
 function* watchFollow() {
   yield takeLatest(FOLLOW_REQUEST, follow)
@@ -137,6 +160,7 @@ function* watchSignUp() {
 
 export default function* userSaga() {
   yield all([
+    fork(watchLoadUser),
     fork(watchUnfollow),
     fork(watchFollow),
     fork(watchLogIn),
