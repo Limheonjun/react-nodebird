@@ -22,16 +22,16 @@ export const initialState: any = {
 
 export const generateDummyPost = (number) => Array(number).fill().map(() => ({
     id: shortId.generate(),
-    User: {
+    users: {
       id: shortId.generate(),
       nickname: faker.name.findName(),
     },
     content: faker.lorem.paragraph(),
-    Images: [{
+    imagesList: [{
       src: faker.image.image(),
     }],
-    Comments: [{
-      User: {
+    commentsList: [{
+      users: {
         id: shortId.generate(),
         nickname: faker.name.findName(),
       },
@@ -69,18 +69,18 @@ export const addComment = (data) => ({
 const dummyPost = (data) => ({
   id: data.id,
   content: data.content,
-  User: {
+  users: {
     id: 1,
     nickname: '제로초',
   },
-  Images: [],
-  Comments: [],
+  imagesList: [],
+  commentsList: [],
 });
 
 const dummyComment = (data) => ({
   id: shortId.generate(),
   content: data,
-  User: {
+  users: {
     id: 1,
     nickname: '제로초',
   },
@@ -139,8 +139,8 @@ const reducer = (state = initialState, action) => {
         draft.addCommentError=  null
         break
       case ADD_COMMENT_SUCCESS: 
-        const post = draft.mainPosts.find(v => v.id === action.data.postId)
-        post.Comments.unshift(dummyComment(action.data.content))
+        const post = draft.mainPosts.find(v => v.id === action.data.PostId)
+        post.Comments.unshift(action.data.content)
         draft.addCommentLoading = false
         draft.addCommentDone = true
         break
