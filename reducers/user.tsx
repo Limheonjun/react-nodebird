@@ -56,9 +56,9 @@ const dummyUser = (data) => ({
   ...data,
   nickname: '제로초',
   id: 1,
-  Posts: [{ id: 1 }],
-  Followings: [{ nickname: 'tommy'}, { nickname: 'mickel'}, { nickname: 'susan'},],
-  Followers: [{ nickname: 'tommy'}, { nickname: 'mickel'}, { nickname: 'susan'},]
+  postsList: [{ id: 1 }],
+  followings: [{ nickname: 'tommy'}, { nickname: 'mickel'}, { nickname: 'susan'},],
+  followers: [{ nickname: 'tommy'}, { nickname: 'mickel'}, { nickname: 'susan'},]
 })
 
 // action creator
