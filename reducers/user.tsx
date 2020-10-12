@@ -118,7 +118,7 @@ const reducer = (state = initalState, action) => {
         break
       case LOG_IN_FAILURE:
         draft.logInLoading = false
-        draft.logInError = false
+        draft.logInError = action.error
         break
       case LOG_OUT_REQUEST:
         draft.logOutLoading = true
