@@ -13,13 +13,12 @@ import {
 } from '../reducers/post';
 
 function loadPostsAPI(data) {
-  return axios.post('/api/post', data);
+  return axios.post('/posts', data);
 }
 
 function* loadPosts(action) {
   try {
-    // const result = yield call(loadPostsAPI, action.data)
-    yield delay(1000)
+    const result = yield call(loadPostsAPI, action.data)
     yield put({
       type: LOAD_POSTS_SUCCESS,
       data: generateDummyPost(10),
@@ -39,7 +38,6 @@ function addPostAPI(data) {
 function* addPost(action) {
   try {
     const result = yield call(addPostAPI, action.data)
-    const id = shortId.generate()
     yield put({
       type: ADD_POST_SUCCESS,
       data: result.data,
@@ -93,20 +91,11 @@ function addCommentAPI(data) {
 function* addComment(action) {
   try {
     const result = yield call(addCommentAPI, action.data)
-    const id = shortId.generate()
     yield put({
       type: ADD_COMMENT_SUCCESS,
-      data: {
-        id,
-        content: action.data
-      },
-    })
-    yield put({
-      type: ADD_POST_TO_ME,
-      data: id,
+      data: result.data,
     })
   } catch (err) {
-    console.error(err);
     yield put({
       type: ADD_COMMENT_FAILURE,
       error: err.response.data,
