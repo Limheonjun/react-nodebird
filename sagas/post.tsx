@@ -21,7 +21,7 @@ function* loadPosts(action) {
     const result = yield call(loadPostsAPI, action.data)
     yield put({
       type: LOAD_POSTS_SUCCESS,
-      data: generateDummyPost(10),
+      data: result.data,
     })
   } catch (err) {
     yield put({
@@ -56,7 +56,7 @@ function* addPost(action) {
 }
 
 function removePostAPI(data) {
-  return axios.post('/api/post', data);
+  return axios.post('/posts/', data);
 }
 
 function* removePost(action) {
@@ -96,6 +96,8 @@ function* addComment(action) {
       data: result.data,
     })
   } catch (err) {
+    console.log(err);
+    
     yield put({
       type: ADD_COMMENT_FAILURE,
       error: err.response.data,
@@ -107,7 +109,7 @@ function* watchLoadPosts() {
   //스크롤 한번에 수많은 이벤트가 발생함
   // yield takeLatest(LOAD_POSTS_REQUEST, loadPosts)
   //따라서 불필요한 요청을 막기 위해 쓰로틀 함수로 지정
-  yield throttle(5000, LOAD_POSTS_REQUEST, loadPosts)
+  yield throttle(2000, LOAD_POSTS_REQUEST, loadPosts)
   
 }
 

@@ -140,7 +140,7 @@ const reducer = (state = initialState, action) => {
         break
       case ADD_COMMENT_SUCCESS: 
         const post = draft.mainPosts.find(v => v.id === action.data.PostId)
-        post.Comments.unshift(action.data.content)
+        post.commentsList.unshift(action.data.content)
         draft.addCommentLoading = false
         draft.addCommentDone = true
         break
